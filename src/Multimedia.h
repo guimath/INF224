@@ -74,7 +74,13 @@ class Multimedia
 
         @param name The new name to the multimedia file
     */    
-    void set_name(std::string name);    
+    void set_name(std::string name);   
+
+    
+    /**
+       Function to open the file 
+    */
+    virtual void open(void) const {}
 };
 
 #endif
