@@ -3,7 +3,7 @@
 using namespace std;
  
 
-Multimedia::Multimedia():m_name("multimedia"), m_path("NA")
+Multimedia::Multimedia():m_name(""), m_path("")
 {
 
 } 
@@ -26,12 +26,12 @@ void Multimedia::infos_out(ostream & out) const
     out << "Name : " << m_name << endl;
 }
 
-std::string Multimedia::get_name() const 
+string Multimedia::get_name() const 
 {
     return m_name;
 }
 
-std::string Multimedia::get_path() const 
+string Multimedia::get_path() const 
 {
     return m_path;
 }
@@ -45,4 +45,5 @@ void Multimedia::set_path(string path)
 {
     m_path = path;
 }
+
 
