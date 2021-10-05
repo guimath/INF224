@@ -6,12 +6,12 @@
 #include <tuple>
 
 #include "Multimedia.h"
-/**
-	A class that represents an image file 
-	
-	@author guimath
-*/
 
+/**
+ *	@brief A class that represents an image file 
+ *	
+ *	@author guimath
+ */
 class Image : public Multimedia 
 {
     private :
@@ -19,61 +19,93 @@ class Image : public Multimedia
     /** The Length x Width dimensions */
     std::tuple<int, int> m_dimensions;
 
+    /** The name of the program with which 
+     * images should be red */
+    std::string m_OPEN_PRG;
+
+    /**
+     * @brief check what image program are available 
+     * and picks best one
+     * 
+     */
+    void update_open_prg(void) ;
+
     public :
     
     /**
-        constructor that takes in no params and initializes 
-        class
-    */    
+     * @brief Construct a new Image object
+     * 
+     */
     Image();
 
+
     /**
-        constructor that takes in all infos of the file
-        
-        @param name The name of the file
-        @param path The path to the file
-        @param length The length of the image
-        @param width The width of the image
-    */    
+     * @brief Construct a new Image object
+     * 
+     * @param name The name of the file
+     * @param path The path of the file
+     * @param length The length of the image
+     * @param width The width of the image
+     */
     Image(std::string name, std::string path, int length, int width);
     
     /**
-        destructor
-    */    
+     * @brief Destroy the Image object
+     * 
+     */
     ~Image();
     
     /**
-       Function to open the file 
-    */
-    void open(void) const ;
+     * @brief open the image
+     * 
+     */
+    void open(void) const override;
 
     /**
-        Function that prints to given output infos about file
-        
-        @param out The outstream where infos will be printed
-    */    
-    void infos_out(std::ostream & out) const;
-    
-    /**
-        getter of length and width instance
+     * @brief prints infos of the object to the given output
+     * 
+     * @param out outstream where info will be printed
+     */
+    void infos_out(std::ostream & out) const override;
 
-        @return A tuple containing length and width
-    */    
+    /**
+     * @brief Get the dimensions instance
+     * 
+     * @return A tuple containing length and width
+     */
     std::tuple<int, int> get_dimensions() const;
 
     /**
-        setter of dimensions instance
-
-        @param length The length of the image
-        @param width The width of the image
-    */    
+     * @brief Set the dimensions instance
+     * 
+     * @param length The length of the image
+     * @param width The width of the image
+     */
     void set_dimensions(int length, int width);
 };
 
 
+void Image::update_open_prg(void) 
+{
+    m_OPEN_PRG = "feh ";
+    std::string chain = "which feh > /dev/null 2>&1"; // > dev/null to hide output
+    if (system(chain.c_str())){
+        
+        m_OPEN_PRG = "imagej ";
+        chain = "which imagej > /dev/null 2>&1";
+        if (system(chain.c_str())){
+            
+            m_OPEN_PRG = "xdg-open ";
+        }
+        
+    }
+    //std::cout << "Using " << m_OPEN_PRG << "to open images"<< endl;
+}
+
 Image::Image()
 {
     m_dimensions = {0,0};
+    update_open_prg();
 }
 
 Image::Image(std::string name, std::string path, int length, int width)
@@ -81,6 +113,9 @@ Image::Image(std::string name, std::string path, int length, int width)
     set_name(name);
     set_path(path);
     m_dimensions = {length, width};
+    
+    update_open_prg();
+
 }
 
 Image::~Image()
@@ -90,9 +125,9 @@ Image::~Image()
 
 void Image::open(void) const 
 {   
-    std::string chain = "imagej "+ get_path() + " &";
-
+    std::string chain = m_OPEN_PRG + get_path() + HIDE_PRINT;;
     system(chain.c_str());
+    
 }
 
 //override
