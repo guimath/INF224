@@ -36,3 +36,4 @@ prog_exec
 depend-prog_exec
 *.mp4
 *.jpg
+/.vscode
