@@ -7,12 +7,12 @@
 #include <tuple>
 
 #include "Multimedia.h"
-/**
-	A class that represents an Video file 
-	
-	@author guimath
-*/
 
+/**
+ *	@brief A class that represents a video file 
+ *	
+ *	@author guimath
+ */
 class Video : public Multimedia 
 {
     private :
@@ -20,59 +20,85 @@ class Video : public Multimedia
     /** The duration of the video */
     int m_duration;
 
+    /** The name of the program with which 
+     * images should be red */
+    std::string m_OPEN_PRG;
+
+    /**
+     * @brief check what image program are available 
+     * and picks best one
+     * 
+     */
+    void update_open_prg(void);
+
     public :
     
     /**
-        constructor that takes in no params and initializes 
-        class
-    */    
+     * @brief Construct a new Video object
+     * 
+     */
     Video();
 
     /**
-        constructor that takes in all infos of the file
-        
-        @param name The name of the file
-        @param path The path to the file
-        @param duration The length of the video
-    */    
+     * @brief Construct a new Video object
+     *
+     * @param name The name of the file
+     * @param path The path to the file
+     * @param duration The length of the video
+     * 
+     */    
     Video(std::string name, std::string path, int duration);
     
     /**
-        destructor
-    */    
+     * @brief Destroy the Video object
+     * 
+     */
     ~Video();
     
     /**
-       Function to open the file 
-    */
-    void open(void) const ;
+     * @brief open the video
+     * 
+     */
+    void open(void) const override;
 
     /**
-        Function that prints to given output infos about file
-        
-        @param out The outstream where infos will be printed
-    */    
-    void infos_out(std::ostream & out) const;
+     * @brief prints infos of the object to the given output
+     * 
+     * @param out outstream where info will be printed
+     */
+    void infos_out(std::ostream & out) const override;
     
     /**
-        getter of duration instance
-
-        @return The duration of the video
-    */    
+     * @brief Get the duration instance
+     * 
+     * @return The duration
+     */
     int get_duration() const;
 
     /**
-        setter of duration instance
-
-        @param duration The duration of the video
-    */    
+     * @brief Set the duration instance
+     * 
+     * @param duration The duration
+     */
     void set_duration(int duration);
 };
 
+void Video::update_open_prg(void) 
+{
+    m_OPEN_PRG = "mpv ";
+    std::string chain = "which feh > /dev/null 2>&1"; // > dev/null to hide output
+    if (system(chain.c_str())){
+            
+        m_OPEN_PRG = "xdg-open ";
+    }
+    
+    //std::cout << "Using " << m_OPEN_PRG << "to open videos" << endl;
+}
 
 Video::Video()
 {
     m_duration = 0;
+    update_open_prg();
 }
 
 Video::Video(std::string name, std::string path, int duration)
@@ -80,6 +106,7 @@ Video::Video(std::string name, std::string path, int duration)
     set_name(name);
     set_path(path);
     m_duration = duration;
+    update_open_prg();
 }
 
 Video::~Video()
@@ -88,20 +115,17 @@ Video::~Video()
 }
 
 void Video::open(void) const 
-{   
-    std::string chain = "mpv "+ get_path() + " &";
-
+{
+    std::string chain = m_OPEN_PRG + get_path() + HIDE_PRINT;
     system(chain.c_str());
 }
 
-//override
-void Video::infos_out(std::ostream & out) const 
+void Video::infos_out(std::ostream & out) const
 {
     out << "File : " << get_path() << std::endl;
     out << "Name : " << get_name() << std::endl;
     out << "duration : " << m_duration << std::endl;
 }
-
 
 int Video::get_duration() const
 {

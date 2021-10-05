@@ -4,12 +4,14 @@
 #include <string>
 #include <iostream>
 
-/**
-	An abstract base class that represents a Multimedia file 
-	
-	@author guimath
-*/
+#define HIDE_PRINT " > /dev/null 2>&1 &"
 
+/**
+ * @brief An abstract base class that represents a Multimedia file
+ * 
+ * @author guimath
+ * 
+ */
 class Multimedia 
 {
     private :
@@ -23,63 +25,65 @@ class Multimedia
     public :
     
     /**
-        constructor that takes in no params and initializes 
-        name as "multimedia" and path as "NA".
-    */    
+     * @brief Construct a new Multimedia object
+     * 
+     */
     Multimedia();
 
     /**
-        constructor that takes in name and path 
-        
-        @param name The name of the file
-        @param path The path to the file
-    */    
+     * @brief Construct a new Multimedia object
+     * 
+     * @param name The name of the file
+     * @param path The path to the file
+     */
     Multimedia(std::string name, std::string path);
     
     /**
-        destructor
-    */    
+     * @brief Destroy the Multimedia object
+     * 
+     */
     ~Multimedia();
 
     /**
-        Function that prints to given output infos about file
-        
-        @param out The outstream where infos will be printed
-    */    
-    void infos_out(std::ostream & out) const;
+     * @brief prints infos of the object to the given output
+     * 
+     * @param out outstream where info will be printed
+     */ 
+    virtual void infos_out(std::ostream & out) const;
 
     /**
-        getter of name instance
-
-        @return The name of the multimedia file
-    */    
+     * @brief Get the name instance
+     * 
+     * @return the name of the file 
+     */
     std::string get_name() const;
 
     /**
-        getter of path instance
-
-        @return The path to the multimedia file
-    */    
+     * @brief Get the path instance
+     * 
+     * @return The path to the file
+     */
     std::string get_path() const;
 
     /**
-        setter of path instance
-
-        @param path The new path to the multimedia file
-    */    
+     * @brief Set the path instance
+     * 
+     * @param path The path to the file
+     */
     void set_path(std::string path);
 
     /**
-        setter of name instance
-
-        @param name The new name to the multimedia file
-    */    
+     * @brief Set the name instance
+     * 
+     * @param name The name of the file
+     */
     void set_name(std::string name);   
 
     
     /**
-       Function to open the file 
-    */
+     * @brief virtual function to open the file
+     * 
+     */
     virtual void open(void) const {}
 };
 
