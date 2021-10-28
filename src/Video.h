@@ -29,7 +29,7 @@ class Video : public Multimedia
      * and picks best one
      * 
      */
-    void update_open_prg(void);
+    void update_open_prg();
 
     public :
     
@@ -45,7 +45,6 @@ class Video : public Multimedia
      * @param name The name of the file
      * @param path The path to the file
      * @param duration The length of the video
-     * 
      */    
     Video(std::string name, std::string path, int duration);
     
@@ -59,7 +58,7 @@ class Video : public Multimedia
      * @brief open the video
      * 
      */
-    void open(void) const override;
+    void open() const override;
 
     /**
      * @brief prints infos of the object to the given output
@@ -83,61 +82,5 @@ class Video : public Multimedia
     void set_duration(int duration);
 };
 
-void Video::update_open_prg(void) 
-{
-    m_OPEN_PRG = "mpv ";
-    std::string chain = "which feh > /dev/null 2>&1"; // > dev/null to hide output
-    if (system(chain.c_str())){
-            
-        m_OPEN_PRG = "xdg-open ";
-    }
-    
-    //std::cout << "Using " << m_OPEN_PRG << "to open videos" << endl;
-}
-
-Video::Video()
-{
-    m_duration = 0;
-    update_open_prg();
-}
-
-Video::Video(std::string name, std::string path, int duration)
-{
-    set_name(name);
-    set_path(path);
-    m_duration = duration;
-    update_open_prg();
-}
-
-Video::~Video()
-{
-
-}
-
-void Video::open(void) const 
-{
-    std::string chain = m_OPEN_PRG + get_path() + HIDE_PRINT;
-    system(chain.c_str());
-}
-
-void Video::infos_out(std::ostream & out) const
-{
-    out << "File : " << get_path() << std::endl;
-    out << "Name : " << get_name() << std::endl;
-    out << "duration : " << m_duration << std::endl;
-}
-
-int Video::get_duration() const
-{
-    return m_duration;
-}
-
-void Video::set_duration(int duration)
-{
-    m_duration = duration;
-}
-
-
 
 #endif
-

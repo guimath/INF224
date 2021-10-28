@@ -10,7 +10,6 @@
  * @brief An abstract base class that represents a Multimedia file
  * 
  * @author guimath
- * 
  */
 class Multimedia 
 {

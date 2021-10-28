@@ -54,9 +54,8 @@ int main(int argc, const char* argv[])
 
 #elif STEP == 5
 #include "Image.h"
-#include "Video.h"    
-
-int main(int argc, const char* argv[])
+#include "Video.h"  
+int main(int argc, const char* argv[])  
 {
     cout << endl << "Testing Step " << STEP << endl << endl;
 
@@ -66,16 +65,32 @@ int main(int argc, const char* argv[])
     file[1] = new Video ("first video", VID_PATH, 14);
     file[2] = new Image("second image","place_holder.jpg",800,100);
     file[3] = new Video("second video","place_holder.mp4",203);
-
+ 
     // diplaying infos
     for (int i=0; i<4; i++)
     {
-        cout <<  endl << "file n°" << i+1 << endl;
+        cout <<  endl << "file n°" << i+1 << endl;  
         file[i]->infos_out(cout);
     }
- 
     return 0;
 } 
-#endif
 
+#elif STEP == 6
+#include "Film.h"    
+
+int main(int argc, const char* argv[])  
+{
+    cout << endl << "Testing Step " << STEP << endl << endl;
+
+    int * chapter_durations = new int [3];
+    chapter_durations[0] = 12;
+    chapter_durations[1] = 5;
+    chapter_durations[2] = 76;
+    
+    Film * file1 = new Film ("first video", VID_PATH, 14, chapter_durations,3);
+    // diplaying infos
+    file1 ->infos_out(cout);
+    return 0;
+} 
+#endif 
  

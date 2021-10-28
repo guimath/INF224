@@ -46,9 +46,37 @@ class Film : public Video
      * @brief Destroy the Film object
      * 
      */
-    ~Film() {}
+    ~Film();
 
-    int * get_chapters(void)const;
+    /**
+     * @brief Get the chapter_durations instance
+     * 
+     * @return the chapter_durations instance
+     */
+    int * get_chapter_durations() const;
+
+    /**
+     * @brief Get the chapter_nb instance
+     * 
+     * @return The chapter_nb instance
+     */
+    int get_chapter_nb() const;
+
+    /**
+     * @brief Set the chapter_durations instance
+     * 
+     * @param chapter_durations a ptr containing all chapter durations
+     * @param chapter_nb the number of chapters
+     */
+    void set_chapter_durations(int* chapter_durations, int chapter_nb);
+
+    /**
+     * @brief prints infos of the object to the given output
+     * 
+     * @param out outstream where info will be printed
+     */
+    void infos_out(std::ostream & out) const override;
+    
 };
 
 #endif

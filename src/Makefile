@@ -14,7 +14,7 @@ PROG = prog_exec
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = src/main.cpp src/Multimedia.cpp
+SOURCES = main.cpp Multimedia.cpp Image.cpp Video.cpp Film.cpp
 # Myclass.h
 
 #
