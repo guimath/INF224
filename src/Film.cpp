@@ -8,8 +8,8 @@ Film::Film()
     m_chapter_nb = 0;
 }
 
-Film::Film(std::string name, 
-           std::string path, 
+Film::Film(string name, 
+           string path, 
            int duration, 
            int* chapter_durations, 
            int chapter_nb)
@@ -17,6 +17,7 @@ Film::Film(std::string name,
     
 {
     m_chapter_nb = chapter_nb;
+    m_chapter_durations = new int [m_chapter_nb]; // Allocating memory
 
     for (int i=0; i<chapter_nb; i++){
         * (m_chapter_durations+i) = *(chapter_durations+i); // copies whats pointed
@@ -29,8 +30,14 @@ Film::~Film()
 }
 
 int * Film::get_chapter_durations(void) const 
-{
-    return m_chapter_durations;
+{   
+    // making an accessible array 
+    int * temp = new int [m_chapter_nb];
+    // copying new infos
+    for (int i=0; i<m_chapter_nb; i++){
+        * (temp+i) = *(m_chapter_durations+i);
+    }
+    return temp;
 }
 
 int Film::get_chapter_nb() const
@@ -40,15 +47,24 @@ int Film::get_chapter_nb() const
 
 void Film::set_chapter_durations(int* chapter_durations, int chapter_nb)
 {
-    m_chapter_nb = chapter_nb;
-    * m_chapter_durations = *chapter_durations;
+    if (m_chapter_nb != chapter_nb){
+        m_chapter_nb = chapter_nb; //updating
+        
+        delete[] m_chapter_durations; //deleting and recreating because size changed
+        m_chapter_durations = new int [m_chapter_nb];
+    }
+    
+    // copying new infos
+    for (int i=0; i < m_chapter_nb; i++){
+        * (m_chapter_durations+i) = *(chapter_durations+i);
+    }
 }
 
-void Film::infos_out(std::ostream & out) const
+void Film::infos_out(ostream & out) const
 {
     Video::infos_out(out);
     for (int i=0; i < m_chapter_nb;i++)
     {
-        out << "chapter " << i+1 << " : " << *(m_chapter_durations +i)<< std::endl;
+        out << "chapter " << i+1 << " : " << *(m_chapter_durations +i)<< endl;
     }
 }

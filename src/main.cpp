@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define STEP 5
+#define STEP 6
 
 #include "Multimedia.h"
 
@@ -87,9 +87,20 @@ int main(int argc, const char* argv[])
     chapter_durations[1] = 5;
     chapter_durations[2] = 76;
     
+    //testing constructor and display info
     Film * file1 = new Film ("first video", VID_PATH, 14, chapter_durations,3);
-    // diplaying infos
+    delete[] chapter_durations;
     file1 ->infos_out(cout);
+
+    //testing modifer
+    chapter_durations = new int[4];
+    chapter_durations[0] = 5;
+    chapter_durations[1] = 5;
+    chapter_durations[2] = 5;
+    chapter_durations[3] = 5;
+    file1->set_chapter_durations(chapter_durations, 4);
+    file1 ->infos_out(cout);
+
     return 0;
 } 
 #endif 
