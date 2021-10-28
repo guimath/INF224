@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define STEP 6
+#define STEP 7
 
 #include "Multimedia.h"
 
@@ -103,5 +103,34 @@ int main(int argc, const char* argv[])
 
     return 0;
 } 
+
+#elif STEP == 7
+#include "Image.h"
+#include "Video.h"  
+#include "Film.h"    
+
+int main(int argc, const char* argv[])  
+{
+    cout << endl << "Testing Step " << STEP << endl << endl;
+
+    int * chapter_durations = new int [3];
+    chapter_durations[0] = 12;
+    chapter_durations[1] = 5;
+    chapter_durations[2] = 76;
+    
+    Multimedia ** file = new Multimedia * [3];
+    file[0] = new Image ("first image", IMG_PATH, 400, 100);
+    file[1] = new Video ("first video", VID_PATH, 14);
+    file[2] = new Film ("first video", VID_PATH, 14, chapter_durations,3);
+    //testing constructor and display info
+    
+    // diplaying infos
+    for (int i=0; i<3; i++)
+    {
+        cout <<  endl << "file n°" << i+1 << endl;  
+        file[i]->infos_out(cout);
+    }
+    delete [] file;
+}
 #endif 
  
