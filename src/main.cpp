@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define STEP 7
+#define STEP 8
 
 #include "Multimedia.h"
 
@@ -131,6 +131,46 @@ int main(int argc, const char* argv[])
         file[i]->infos_out(cout);
     }
     delete [] file;
+}
+
+#elif STEP == 8
+#include "Image.h"
+#include "Video.h"  
+#include "Film.h"
+#include "Group.h"    
+
+int main(int argc, const char* argv[])  
+{
+    cout << endl << "Testing Step " << STEP << endl << endl;
+
+    int * chapter_durations = new int [3];
+    chapter_durations[0] = 12;
+    chapter_durations[1] = 5;
+    chapter_durations[2] = 76;
+
+    Multimedia * img0 = new Image ("first image", IMG_PATH, 400, 100);
+    Multimedia * vid0 = new Video ("first video", VID_PATH, 14);
+    Multimedia * img1 = new Image ("second image", IMG_PATH, 400, 100);
+    Multimedia * vid1 = new Video ("second video", VID_PATH, 14);
+    Multimedia * mov1 = new Film ("first film", VID_PATH, 14, chapter_durations,3);
+
+
+    Group * test_group1 = new Group ("first group");
+    Group * test_group2 = new Group ("second group");
+
+    test_group1->push_back(img0);
+    test_group1->push_back(vid0);
+    test_group1->push_back(mov1);
+
+    test_group2->push_back(img1);
+    test_group2->push_back(vid1);
+    test_group2->push_back(mov1);
+
+    test_group1->infos_out(cout);
+    cout << endl;
+    test_group2->infos_out(cout);
+
+
 }
 #endif 
  
