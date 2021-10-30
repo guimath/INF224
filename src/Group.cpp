@@ -3,7 +3,7 @@
 using namespace std;
 
 
-Group::Group(string group_name):list<Multimedia*>()
+Group::Group(string group_name):list<shared_ptr<Multimedia>>()
 {
     m_group_name = group_name;
 }

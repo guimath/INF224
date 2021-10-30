@@ -4,12 +4,14 @@
 #include "Multimedia.h"
 
 #include <list>
+#include <memory>
+
 /**
  *	@brief A class that represents a group of multimedia files 
  *	
  *	@author guimath
  */
-class Group : public std::list<Multimedia*>
+class Group : public std::list< std::shared_ptr< Multimedia > >
 {
 private:
     /** Group name */
