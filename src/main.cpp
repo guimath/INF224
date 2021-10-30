@@ -138,6 +138,8 @@ int main(int argc, const char* argv[])
 #include "Video.h"  
 #include "Film.h"
 #include "Group.h"    
+#include <memory>
+#include <list>
 
 int main(int argc, const char* argv[])  
 {
@@ -148,11 +150,11 @@ int main(int argc, const char* argv[])
     chapter_durations[1] = 5;
     chapter_durations[2] = 76;
 
-    Multimedia * img0 = new Image ("first image", IMG_PATH, 400, 100);
-    Multimedia * vid0 = new Video ("first video", VID_PATH, 14);
-    Multimedia * img1 = new Image ("second image", IMG_PATH, 400, 100);
-    Multimedia * vid1 = new Video ("second video", VID_PATH, 14);
-    Multimedia * mov1 = new Film ("first film", VID_PATH, 14, chapter_durations,3);
+    shared_ptr<Multimedia> img0 (new Image ("first image", IMG_PATH, 400, 100));
+    shared_ptr<Multimedia> vid0 (new Video ("first video", VID_PATH, 14));
+    shared_ptr<Multimedia> img1 (new Image ("second image", IMG_PATH, 400, 100));
+    shared_ptr<Multimedia> vid1 (new Video ("second video", VID_PATH, 14));
+    shared_ptr<Multimedia> mov1 (new Film ("first film", VID_PATH, 14, chapter_durations,3));
 
 
     Group * test_group1 = new Group ("first group");
@@ -169,7 +171,7 @@ int main(int argc, const char* argv[])
     test_group1->infos_out(cout);
     cout << endl;
     test_group2->infos_out(cout);
-
+     
 
 }
 #endif 
