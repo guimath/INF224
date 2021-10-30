@@ -14,7 +14,8 @@ PROG = prog_exec
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = main.cpp Multimedia.cpp Image.cpp Video.cpp Film.cpp Group.cpp
+CPPFILES = main.cpp Multimedia.cpp Image.cpp Video.cpp Film.cpp Group.cpp
+SOURCES  = ${CPPFILES:%=src/%}
 # Myclass.h
 
 #
@@ -62,7 +63,7 @@ ${PROG}: depend-${PROG} ${OBJETS}
 	${CXX} -o $@ ${CXXFLAGS} ${LDFLAGS} ${OBJETS} ${LDLIBS}
 
 clean:
-	-@$(RM) *.o depend-${PROG} core 1>/dev/null 2>&1
+	-@$(RM) ${OBJETS} core 1>/dev/null 2>&1
 
 clean-all: clean
 	-@$(RM) ${PROG} 1>/dev/null 2>&1
