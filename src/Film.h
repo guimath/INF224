@@ -35,6 +35,8 @@ class Film : public Video
      * @param name The name of the file
      * @param path The path to the file
      * @param duration The total duration of the video
+     * @param chapter_durations a pointer containing the different durations of each chapter
+     * @param chapter_nb The number of chapters
      */
     Film(std::string name, 
            std::string path, 
