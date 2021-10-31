@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define STEP 8
+#define STEP 10
 
 #include "Multimedia.h"
 
@@ -133,7 +133,7 @@ int main(int argc, const char* argv[])
     delete [] file;
 }
 
-#elif STEP == 8
+#elif STEP == 8 || STEP == 9
 #include "Image.h"
 #include "Video.h"  
 #include "Film.h"
@@ -174,5 +174,58 @@ int main(int argc, const char* argv[])
      
 
 }
+
+#elif STEP == 10
+#include "Image.h"
+#include "Video.h"  
+#include "Film.h"
+#include "Group.h"   
+#include "FileProcSys.h" 
+#include <memory>
+#include <list>
+
+int main(int argc, const char* argv[])  
+{
+    cout << endl << "Testing Step " << STEP << endl << endl;
+
+    int * chapter_durations = new int [3];
+    chapter_durations[0] = 12;
+    chapter_durations[1] = 5;
+    chapter_durations[2] = 76;
+    
+
+    // create fps
+    FileProcSys * fps = new FileProcSys();
+
+    // adding files
+    fps->create_image("first image", IMG_PATH, 400, 100);
+    fps->create_video("first video", VID_PATH, 14);
+    fps->create_image("second image", IMG_PATH, 400, 100);
+    fps->create_video("second video", VID_PATH, 14);
+    fps->create_film ("first film", VID_PATH, 14, chapter_durations,3);
+
+    // adding groups
+    shared_ptr<Group> test_group1 = fps->create_group("first group");
+    shared_ptr<Group> test_group2 = fps->create_group("second group");
+
+    // filling groups
+    test_group1->push_back(fps->get_file("first image"));
+    test_group1->push_back(fps->get_file("first video"));
+    test_group1->push_back(fps->get_file("first film"));
+
+    test_group2->push_back(fps->get_file("second image"));
+    test_group2->push_back(fps->get_file("second video"));
+    test_group2->push_back(fps->get_file("first film"));
+
+    // testing fps 
+    fps->infos_out("first group", cout);
+    cout << endl;
+    fps->infos_out("second group", cout);
+    fps->open("first video");
+
+    /* Question : comment peut-on interdire la création d'objet multimedia hors de la classe de manipulation ?
+    reponse : on déclare le constructeur en private et on rajoute la classe FileProcSys en friend*/
+}
+
 #endif 
  
