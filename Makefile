@@ -14,7 +14,7 @@ PROG = prog_exec
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-CPPFILES = main.cpp Multimedia.cpp Image.cpp Video.cpp Film.cpp Group.cpp
+CPPFILES = main.cpp Multimedia.cpp Image.cpp Video.cpp Film.cpp Group.cpp FileProcSys.cpp
 SOURCES  = ${CPPFILES:%=src/%}
 # Myclass.h
 
