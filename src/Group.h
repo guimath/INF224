@@ -15,29 +15,29 @@ class Group : public std::list< std::shared_ptr< Multimedia > >
 {
 private:
     /** Group name */
-    std::string m_group_name;
+    std::string m_name;
 
 public:
     /**
      * @brief Construct a new Group object
      * 
-     * @param group_name The name of the group
+     * @param name The name of the group
      */
-    Group(std::string group_name);
+    Group(std::string name);
 
     /**
-     * @brief Get the group_name instance
+     * @brief Get the name instance
      * 
-     * @return the group_name instance
+     * @return the name instance
      */
-    std::string get_group_name() const;
+    std::string get_name() const;
 
     /**
-     * @brief Set the group_name instance
+     * @brief Set the name instance
      * 
-     * @param group_name the new name of group
+     * @param name the new name of group
      */
-    void set_group_name(std::string group_name);
+    void set_name(std::string name);
 
     /**
      * @brief prints infos of the object to the given output
