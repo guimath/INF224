@@ -16,18 +16,12 @@ class Film : public Video
     private:
 
     /** array containing all chapter durations */
-    int * m_chapter_durations;
+    int * m_chapter_durations=nullptr;
 
     /** number of chapters */
     int m_chapter_nb;
 
     public:
-
-    /**
-     * @brief Construct a new Film object
-     * 
-     */
-    Film();
 
     /**
      * @brief Construct a new Film object
@@ -38,11 +32,11 @@ class Film : public Video
      * @param chapter_durations a pointer containing the different durations of each chapter
      * @param chapter_nb The number of chapters
      */
-    Film(std::string name, 
-           std::string path, 
-           int duration, 
-           int* chapter_durations, 
-           int chapter_nb);
+    Film(std::string name="", 
+           std::string path="", 
+           int duration=0, 
+           int* chapter_durations=nullptr, 
+           int chapter_nb=0);
 
     /**
      * @brief Destroy the Film object

@@ -16,9 +16,6 @@ class Image : public Multimedia
 {
     private :
 
-    /** The Length x Width dimensions */
-    std::tuple<int, int> m_dimensions;
-
     /** The name of the program with which 
      * images should be red */
     std::string m_OPEN_PRG;
@@ -30,14 +27,12 @@ class Image : public Multimedia
      */
     void update_open_prg(void) ;
 
-    public :
-    
-    /**
-     * @brief Construct a new Image object
-     * 
-     */
-    Image();
+    protected :
 
+    /** The Length x Width dimensions */
+    std::tuple<int, int> m_dimensions;
+
+    public :
 
     /**
      * @brief Construct a new Image object
@@ -47,7 +42,7 @@ class Image : public Multimedia
      * @param length The length of the image
      * @param width The width of the image
      */
-    Image(std::string name, std::string path, int length, int width);
+    Image(std::string name="", std::string path="", int length=0, int width=0);
     
     /**
      * @brief Destroy the Image object

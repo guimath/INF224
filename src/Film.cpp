@@ -2,12 +2,6 @@
 
 using namespace std;
 
-Film::Film()
-{
-    m_chapter_durations = nullptr;
-    m_chapter_nb = 0;
-}
-
 Film::Film(string name, 
            string path, 
            int duration, 

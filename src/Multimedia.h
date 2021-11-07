@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-#define HIDE_PRINT " > /dev/null 2>&1 &"
+#define HIDE_PRINT " > /dev/null 2>&1"
 
 /**
  * @brief An abstract base class that represents a Multimedia file
@@ -13,7 +13,7 @@
  */
 class Multimedia 
 {
-    private :
+    protected :
 
     /** The name of the multimedia file */
     std::string m_name;
@@ -22,12 +22,6 @@ class Multimedia
     std::string m_path;
 
     public :
-    
-    /**
-     * @brief Construct a new Multimedia object
-     * 
-     */
-    Multimedia();
 
     /**
      * @brief Construct a new Multimedia object
@@ -35,7 +29,7 @@ class Multimedia
      * @param name The name of the file
      * @param path The path to the file
      */
-    Multimedia(std::string name, std::string path);
+    Multimedia(std::string name="", std::string path="");
     
     /**
      * @brief Destroy the Multimedia object

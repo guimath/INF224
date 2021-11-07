@@ -17,9 +17,6 @@ class Video : public Multimedia
 {
     private :
 
-    /** The duration of the video */
-    int m_duration;
-
     /** The name of the program with which 
      * images should be red */
     std::string m_OPEN_PRG;
@@ -31,13 +28,12 @@ class Video : public Multimedia
      */
     void update_open_prg();
 
-    public :
+    protected :
+
+    /** The duration of the video */
+    int m_duration;
     
-    /**
-     * @brief Construct a new Video object
-     * 
-     */
-    Video();
+    public :
 
     /**
      * @brief Construct a new Video object
@@ -46,7 +42,7 @@ class Video : public Multimedia
      * @param path The path to the file
      * @param duration The length of the video
      */    
-    Video(std::string name, std::string path, int duration);
+    Video(std::string name="", std::string path="", int duration=0);
     
     /**
      * @brief Destroy the Video object

@@ -5,18 +5,13 @@ using namespace std;
 void Video::update_open_prg(void) 
 {
     m_OPEN_PRG = "mpv ";
-    string chain = "which feh > /dev/null 2>&1"; // > dev/null to hide output
+    string chain = "which feh" HIDE_PRINT;
     if (system(chain.c_str())){
             
         m_OPEN_PRG = "xdg-open ";
     }
     
     //cout << "Using " << m_OPEN_PRG << "to open videos" << endl;
-}
-
-Video::Video():m_duration(0)
-{
-    update_open_prg();
 }
 
 Video::Video(string name, string path, int duration)
@@ -33,7 +28,7 @@ Video::~Video()
 
 void Video::open() const 
 {
-    string chain = m_OPEN_PRG + get_path() + HIDE_PRINT;
+    string chain = m_OPEN_PRG + m_path + HIDE_PRINT " &";
     system(chain.c_str());
 }
 

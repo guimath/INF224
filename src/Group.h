@@ -23,7 +23,7 @@ public:
      * 
      * @param name The name of the group
      */
-    Group(std::string name);
+    Group(std::string name="");
 
     /**
      * @brief Get the name instance

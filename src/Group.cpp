@@ -3,9 +3,9 @@
 using namespace std;
 
 
-Group::Group(string name):list<shared_ptr<Multimedia>>()
+Group::Group(string name):list<shared_ptr<Multimedia>>(), m_name(name)
 {
-    m_name = name;
+
 }
 
 string Group::get_name() const

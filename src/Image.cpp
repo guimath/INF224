@@ -6,11 +6,11 @@ using namespace std;
 void Image::update_open_prg(void) 
 {
     m_OPEN_PRG = "feh ";
-    string chain = "which feh > /dev/null 2>&1"; // > dev/null to hide output
+    string chain = "which feh" HIDE_PRINT; // > dev/null to hide output
     if (system(chain.c_str())){
         
         m_OPEN_PRG = "imagej ";
-        chain = "which imagej > /dev/null 2>&1";
+        chain = "which imagej" HIDE_PRINT;
         if (system(chain.c_str())){
             
             m_OPEN_PRG = "xdg-open ";
@@ -18,11 +18,6 @@ void Image::update_open_prg(void)
         
     }
     //cout << "Using " << m_OPEN_PRG << "to open images"<< endl;
-}
-
-Image::Image():m_dimensions({0,0})
-{
-    update_open_prg();
 }
 
 Image::Image(string name, string path, int length, int width)
@@ -34,14 +29,13 @@ Image::Image(string name, string path, int length, int width)
 
 Image::~Image()
 {
-
+    //pass
 }
 
 void Image::open(void) const 
 {   
-    string chain = m_OPEN_PRG + get_path() + HIDE_PRINT;;
+    string chain = m_OPEN_PRG + m_path + HIDE_PRINT " &";
     system(chain.c_str());
-    
 }
 
 //override

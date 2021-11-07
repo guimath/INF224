@@ -1,12 +1,6 @@
 #include "Multimedia.h"
 
 using namespace std;
- 
-
-Multimedia::Multimedia():m_name(""), m_path("")
-{
-
-} 
 
 Multimedia::Multimedia(string name, string path):m_name(name), m_path(path)
 {
