@@ -14,14 +14,13 @@ PROG = prog_exec
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-CPPFILES = main.cpp Multimedia.cpp Image.cpp Video.cpp Film.cpp Group.cpp FileProcSys.cpp
-SOURCES  = ${CPPFILES:%=src/%}
+CPPFILES = main.cpp Multimedia.cpp Image.cpp Video.cpp Film.cpp Group.cpp FileProcSys.cpp tcpserver.cpp cppsocket.cpp
 # Myclass.h
 
 #
 # Fichiers objets (ne pas modifier sauf si l'extension n'est pas .cpp)
 #
-OBJETS = ${SOURCES:%.cpp=%.o}
+OBJETS = ${CPPFILES:%.cpp=%.o}
 
 #
 # Compilateur C++
@@ -45,8 +44,7 @@ LDFLAGS =
 # Librairies a utiliser
 # Exemple: LDLIBS = -L/usr/local/qt/lib -lqt
 #
-LDLIBS = 
-
+LDLIBS = -lpthread
 
 ##########################################
 #
@@ -69,13 +67,13 @@ clean-all: clean
 	-@$(RM) ${PROG} 1>/dev/null 2>&1
   
 tar:
-	tar cvf ${PROG}.tar.gz ${SOURCES}
+	tar cvf ${PROG}.tar.gz ${CPPFILES}
 
 # Gestion des dependances : creation automatique des dependances en utilisant 
 # l'option -MM de g++ (attention tous les compilateurs n'ont pas cette option)
 #
 depend-${PROG}:
-	${CXX} ${CXXFLAGS} -MM ${SOURCES} > depend-${PROG}
+	${CXX} ${CXXFLAGS} -MM ${CPPFILES} > depend-${PROG}
 
 
 ###########################################
