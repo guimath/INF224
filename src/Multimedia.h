@@ -35,7 +35,7 @@ class Multimedia
      * @brief Destroy the Multimedia object
      * 
      */
-    ~Multimedia();
+    virtual ~Multimedia() {};
 
     /**
      * @brief prints infos of the object to the given output

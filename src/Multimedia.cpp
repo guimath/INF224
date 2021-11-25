@@ -7,11 +7,6 @@ Multimedia::Multimedia(string name, string path):m_name(name), m_path(path)
 
 } 
 
-Multimedia::~Multimedia()
-{
-
-}
-
 void Multimedia::infos_out(ostream & out) const
 {
     // see https://gcc.gnu.org/onlinedocs/libstdc++/manual/streambufs.html#io.streambuf.buffering 
