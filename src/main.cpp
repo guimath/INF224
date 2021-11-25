@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#define STEP 10
+#define STEP 11
 
 #include "Multimedia.h"
 
@@ -221,11 +221,67 @@ int main(int argc, const char* argv[])
     fps->infos_out("first group", cout);
     cout << endl;
     fps->infos_out("second group", cout);
-    fps->open("first video");
+    fps->open("first image");
 
     /* Question : comment peut-on interdire la création d'objet multimedia hors de la classe de manipulation ?
-    reponse : on déclare le constructeur en private et on rajoute la classe FileProcSys en friend*/
+    reponse : on déclare le constructeur en private et on rajoute la classe FileProcSys en friend
+    https://en.wikipedia.org/wiki/Friend_class*/
 }
 
+
+#elif STEP == 11 //client serveur
+#include "Image.h"
+#include "Video.h"  
+#include "Film.h"
+#include "Group.h"   
+#include "FileProcSys.h" 
+#include "CppSocket.h"
+#include "TcpServer.h"
+#include <memory>
+#include <list>
+using namespace cppu;
+
+int main(int argc, const char* argv[])  
+{
+    cout << endl << "Testing Step " << STEP << endl << endl;
+
+    int * chapter_durations = new int [3];
+    chapter_durations[0] = 12;
+    chapter_durations[1] = 5;
+    chapter_durations[2] = 76;
+    
+    // create fps
+    FileProcSys * fps = new FileProcSys();
+
+    // adding files
+    fps->create_image("first_img", IMG_PATH, 400, 100);
+    fps->create_video("first_vid", VID_PATH, 14);
+    fps->create_image("sec_img", IMG_PATH, 400, 100);
+    fps->create_video("sec_vid", VID_PATH, 14);
+    fps->create_film ("first_film", VID_PATH, 14, chapter_durations,3);
+
+    // adding groups
+    shared_ptr<Group> test_group1 = fps->create_group("first_group");
+    shared_ptr<Group> test_group2 = fps->create_group("second_group");
+
+    // filling groups
+    test_group1->push_back(fps->get_file("first_img"));
+    test_group1->push_back(fps->get_file("first_vid"));
+    test_group1->push_back(fps->get_file("first_film"));
+
+    test_group2->push_back(fps->get_file("sec_img"));
+    test_group2->push_back(fps->get_file("sec_vid"));
+    test_group2->push_back(fps->get_file("first_film"));
+
+    // starting serv 
+    shared_ptr<TCPServer> server(new TCPServer());
+    
+    server->setCallback(*fps, &FileProcSys::process_request);
+
+    int status = server->run(3331);
+
+}
 #endif 
- 
+
+
+
