@@ -1,10 +1,11 @@
 #include "FileProcSys.h"
 
 using namespace std;
+using namespace cppu;
 
 FileProcSys::FileProcSys() 
 {
-    // pass
+
 }
 
 
@@ -76,4 +77,42 @@ std::shared_ptr<Group> FileProcSys::get_group(std::string name)
         return group_map[name];
     }
     else return nullptr;
+}
+
+
+bool FileProcSys::process_request(TCPConnection& cnx, const string& request, string& response) 
+{
+    // request type <target> <action>
+    
+    // parsing request :
+    string target = request.substr(0, request.find(" "));
+    string action = request.substr(request.find(" ")+1);
+    
+    //cout << "[debug] target = " << target << endl;
+    //cout << "[debug] action = " << action << endl;
+
+    stringstream answer;
+
+    // locking in case multiple clients (add writeMode=true if changing infos)
+    TCPLock lock(cnx);
+
+    actions_map["open"] = [&](){
+        if (open(target)) answer << "Opening file \"" << target << "\"";
+        else              answer << "file \"" << target << "\" not found";
+    };
+
+    actions_map["infos"] = [&](){
+        if (!infos_out(target, answer)) answer << "file \"" << target << "\" not found";
+    };
+
+    // processing request
+    if (actions_map.find(action)!=actions_map.end()) actions_map[action]();
+    else answer << "incorrect action, actions are : open, infos.";
+
+    // response 
+    response = answer.str();
+    replace(response.begin(), response.end(), '\n', ' '); // removing line breaks (used in com)
+
+    // keeping connection open
+    return true;
 }

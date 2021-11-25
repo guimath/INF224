@@ -4,12 +4,16 @@
 #include <memory>
 #include <string>
 #include <map>
+#include <sstream>
+#include <algorithm>
+#include <functional>
+
 
 #include "Image.h"
 #include "Video.h"
 #include "Film.h"
 #include "Group.h"
-
+#include "TcpServer.h"
 class FileProcSys
 {
 private:
@@ -17,6 +21,9 @@ private:
     std::map<std::string, std::shared_ptr<Multimedia>> file_map;
     /* map containing all the groups */ 
     std::map<std::string, std::shared_ptr<Group>> group_map;
+
+    std::map<std::string,std::function<void()>> actions_map;
+
 public:
 
     FileProcSys();
@@ -29,7 +36,7 @@ public:
      * @param length The length of the image
      * @param width The width of the image
      */
-    std::shared_ptr<Image> create_image(std::string name, std::string path, float length, float width);
+    std::shared_ptr<Image> create_image(std::string name="", std::string path="", float length=0, float width=0);
     
     /**
      * @brief Construct a new Video object
@@ -38,7 +45,7 @@ public:
      * @param path The path to the file
      * @param duration The length of the video
      */    
-    std::shared_ptr<Video> create_video(std::string name, std::string path, int duration);
+    std::shared_ptr<Video> create_video(std::string name="", std::string path="", int duration=0);
 
     /**
      * @brief Construct a new Film object and adds it to map
@@ -49,7 +56,7 @@ public:
      * @param chapter_durations a pointer containing the different durations of each chapter
      * @param chapter_nb The number of chapters
      */
-    std::shared_ptr<Film> create_film(std::string name, std::string path, int duration, int * chapter_durations, int chapter_nb);
+    std::shared_ptr<Film> create_film(std::string name="", std::string path="", int duration=0, int * chapter_durations=nullptr, int chapter_nb=0);
     
     /**
      * @brief Construct a new Group object
@@ -92,6 +99,8 @@ public:
      * @return The group object
      */
     std::shared_ptr<Group> get_group(std::string name);
+
+    bool process_request(cppu::TCPConnection& cnx, const std::string& request, std::string& response);
 };
 
 
